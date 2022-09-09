@@ -23,10 +23,15 @@ function onLoad() {
   }
 
   function checkKeyPress(event) {
+    let keyPressed = event.key;
+    keyPressed = keyPressed.toLowerCase();
+
     // only interested in letters and numbers
-    let isLetter = event.keyCode >= 65 && event.keyCode <= 90;
-    let isNumber = event.keyCode >= 48 && event.keyCode <= 57;
-    let isSpace = event.keyCode === 32;
+    let isSingleCharacter = keyPressed.length === 1;
+    let isLetter = keyPressed >= 'a' && keyPressed <= 'z';
+    let isNumber = keyPressed >= '0' && keyPressed <= '9';
+    let isSpace = keyPressed === ' ';
+    if (!isSingleCharacter) { return; }
     if (!isLetter && !isNumber && !isSpace) {
       return;
     }
@@ -38,11 +43,8 @@ function onLoad() {
     currentLetterElement.classList.remove("pass");
     currentLetterElement.classList.remove("fail");
 
-    let letterPressed = event.key;
-    letterPressed = letterPressed.toLowerCase();
-
     // if the correct letter was pressed
-    if (currentLetter === letterPressed) {
+    if (currentLetter === keyPressed) {
       currentLetterElement.classList.add("pass");
       currentLetterIndex++;
 
